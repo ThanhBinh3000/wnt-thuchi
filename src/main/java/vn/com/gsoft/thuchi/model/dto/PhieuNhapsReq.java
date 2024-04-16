@@ -1,13 +1,6 @@
 package vn.com.gsoft.thuchi.model.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import vn.com.gsoft.thuchi.model.system.BaseRequest;
 
 import java.math.BigDecimal;
@@ -18,7 +11,7 @@ public class PhieuNhapsReq extends BaseRequest {
     private Integer maPhieuNhap;
     private Long soPhieuNhap;
     private Date ngayNhap;
-    private Integer vAT;
+    private Integer vat;
     private String dienGiai;
     private BigDecimal tongTien;
     private BigDecimal daTra;

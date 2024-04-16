@@ -1,6 +1,7 @@
 package vn.com.gsoft.thuchi.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "PhieuThuChis")
+@Entity
 public class PhieuThuChis extends BaseEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

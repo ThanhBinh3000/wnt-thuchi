@@ -29,7 +29,7 @@ public class PhieuXuats extends BaseEntity {
     @Column(name = "NgayXuat")
     private Date ngayXuat;
     @Column(name = "VAT")
-    private Integer vAT;
+    private Integer vat;
     @Column(name = "DienGiai")
     private String dienGiai;
     @Column(name = "TongTien")

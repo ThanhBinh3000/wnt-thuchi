@@ -53,7 +53,7 @@ public class PhieuXuatChiTietsReq extends BaseRequest {
     private Date updatedDate;
     private Integer createdById;
     private Date createdDate;
-    private BigDecimal vAT;
+    private BigDecimal vat;
     private String reason;
     private String solution;
     private String notes;

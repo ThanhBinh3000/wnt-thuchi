@@ -50,7 +50,7 @@ public class PhieuNhapChiTietsReq extends BaseRequest {
     private Date updatedDate;
     private Integer createdById;
     private Date createdDate;
-    private BigDecimal vAT;
+    private BigDecimal vat;
     private Boolean lockReGenReportData;
     private String reason;
     private String solution;

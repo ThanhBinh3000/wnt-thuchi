@@ -105,7 +105,7 @@ public class PhieuNhapChiTiets extends BaseEntity {
     @Column(name = "CreatedDate")
     private Date createdDate;
     @Column(name = "VAT")
-    private BigDecimal vAT;
+    private BigDecimal vat;
     @Column(name = "LockReGenReportData")
     private Boolean lockReGenReportData;
     @Column(name = "Reason")

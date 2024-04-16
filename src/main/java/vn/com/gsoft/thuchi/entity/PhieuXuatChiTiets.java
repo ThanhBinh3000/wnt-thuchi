@@ -99,7 +99,7 @@ public class PhieuXuatChiTiets extends BaseEntity {
     @Column(name = "CreatedDate")
     private Date createdDate;
     @Column(name = "VAT")
-    private BigDecimal vAT;
+    private BigDecimal vat;
     @Column(name = "Reason")
     private String reason;
     @Column(name = "Solution")

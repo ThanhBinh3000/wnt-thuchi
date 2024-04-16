@@ -30,7 +30,7 @@ public class PhieuNhaps extends BaseEntity {
     @Column(name = "NgayNhap")
     private Date ngayNhap;
     @Column(name = "VAT")
-    private Integer vAT;
+    private Integer vat;
     @Column(name = "DienGiai")
     private String dienGiai;
     @Column(name = "TongTien")
