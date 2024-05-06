@@ -14,7 +14,7 @@ import java.util.List;
 public interface PhieuThuChisRepository extends BaseRepository<PhieuThuChis, PhieuThuChisReq, Long> {
   @Query("SELECT c FROM PhieuThuChis c " +
          "WHERE 1=1 "
-          + " AND (:#{#param.maPhieu} IS NULL OR c.maPhieu = :#{#param.maPhieu}) "
+          + " AND (:#{#param.id} IS NULL OR c.id = :#{#param.id}) "
           + " AND (:#{#param.soPhieu} IS NULL OR c.soPhieu = :#{#param.soPhieu}) "
           + " AND (:#{#param.dienGiai} IS NULL OR lower(c.dienGiai) LIKE lower(concat('%',CONCAT(:#{#param.dienGiai},'%'))))"
 //          + " AND (:#{#param.ngayTao} IS NULL OR c.ngayTao >= :#{#param.ngayTaoFrom}) "
@@ -46,14 +46,14 @@ public interface PhieuThuChisRepository extends BaseRepository<PhieuThuChis, Phi
 //          + " AND (:#{#param.fromDate} IS NULL OR c.fromDate <= :#{#param.fromDateTo}) "
 //          + " AND (:#{#param.toDate} IS NULL OR c.toDate >= :#{#param.toDateFrom}) "
 //          + " AND (:#{#param.toDate} IS NULL OR c.toDate <= :#{#param.toDateTo}) "
-          + " ORDER BY c.maPhieu desc"
+          + " ORDER BY c.id desc"
   )
   Page<PhieuThuChis> searchPage(@Param("param") PhieuThuChisReq param, Pageable pageable);
   
   
   @Query("SELECT c FROM PhieuThuChis c " +
          "WHERE 1=1 "
-          + " AND (:#{#param.maPhieu} IS NULL OR c.maPhieu = :#{#param.maPhieu}) "
+          + " AND (:#{#param.id} IS NULL OR c.id = :#{#param.id}) "
           + " AND (:#{#param.soPhieu} IS NULL OR c.soPhieu = :#{#param.soPhieu}) "
           + " AND (:#{#param.dienGiai} IS NULL OR lower(c.dienGiai) LIKE lower(concat('%',CONCAT(:#{#param.dienGiai},'%'))))"
 //          + " AND (:#{#param.ngayTao} IS NULL OR c.ngayTao >= :#{#param.ngayTaoFrom}) "
@@ -85,7 +85,7 @@ public interface PhieuThuChisRepository extends BaseRepository<PhieuThuChis, Phi
 //          + " AND (:#{#param.fromDate} IS NULL OR c.fromDate <= :#{#param.fromDateTo}) "
 //          + " AND (:#{#param.toDate} IS NULL OR c.toDate >= :#{#param.toDateFrom}) "
 //          + " AND (:#{#param.toDate} IS NULL OR c.toDate <= :#{#param.toDateTo}) "
-          + " ORDER BY c.maPhieu desc"
+          + " ORDER BY c.id desc"
   )
   List<PhieuThuChis> searchList(@Param("param") PhieuThuChisReq param);
 

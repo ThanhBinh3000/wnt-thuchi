@@ -20,8 +20,6 @@ public class PhieuThuChis extends BaseEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "MaPhieu")
-    private Integer maPhieu;
     @Column(name = "SoPhieu")
     private Integer soPhieu;
     @Column(name = "DienGiai")

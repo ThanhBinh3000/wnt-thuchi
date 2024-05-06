@@ -10,7 +10,6 @@ import java.util.Date;
 public class PhieuThuChisReq extends BaseRequest {
 
     private Long id;
-    private Integer maPhieu;
     private Integer soPhieu;
     private String dienGiai;
     private Date ngayTao;
