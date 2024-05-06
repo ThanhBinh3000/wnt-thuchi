@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.com.gsoft.thuchi.constant.PathContains;
 import vn.com.gsoft.thuchi.model.dto.PhieuNhapsReq;
-import vn.com.gsoft.thuchi.response.BaseResponse;
+import vn.com.gsoft.thuchi.model.system.BaseResponse;
 import vn.com.gsoft.thuchi.service.PhieuNhapsService;
 import vn.com.gsoft.thuchi.util.system.ResponseUtils;
 
