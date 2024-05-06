@@ -17,13 +17,11 @@ public class PhieuNhapsReq extends BaseRequest {
     private BigDecimal daTra;
     private String nhaThuocMaNhaThuoc;
     private Integer loaiXuatNhapMaLoaiXuatNhap;
-    private Integer nhaCungCapMaNhaCungCap;
-    private Integer khachHangMaKhachHang;
+    private Long nhaCungCapMaNhaCungCap;
+    private Long khachHangMaKhachHang;
     private Integer userProfileUserId;
     private Date created;
     private Date modified;
-    private Integer createdByUserId;
-    private Integer modifiedByUserId;
     private Boolean active;
     private Boolean isModified;
     private Boolean locked;

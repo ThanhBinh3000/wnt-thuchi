@@ -15,7 +15,6 @@ import java.util.Date;
 
 @Data
 public class PhieuXuatsReq extends BaseRequest {
-
     private Integer maPhieuXuat;
     private Long soPhieuXuat;
     private Date ngayXuat;
@@ -25,14 +24,12 @@ public class PhieuXuatsReq extends BaseRequest {
     private BigDecimal daTra;
     private String nhaThuocMaNhaThuoc;
     private Integer maLoaiXuatNhap;
-    private Integer khachHangMaKhachHang;
-    private Integer nhaCungCapMaNhaCungCap;
+    private Long khachHangMaKhachHang;
+    private Long nhaCungCapMaNhaCungCap;
     private Integer bacSyMaBacSy;
     private Integer userProfileUserId;
     private Date created;
     private Date modified;
-    private Integer createdByUserId;
-    private Integer modifiedByUserId;
     private Boolean active;
     private Boolean isModified;
     private Boolean locked;

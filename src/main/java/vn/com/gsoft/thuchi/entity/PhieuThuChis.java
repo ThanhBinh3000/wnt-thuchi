@@ -31,9 +31,9 @@ public class PhieuThuChis extends BaseEntity {
     @Column(name = "NhaThuoc_MaNhaThuoc")
     private String nhaThuocMaNhaThuoc;
     @Column(name = "KhachHang_MaKhachHang")
-    private Integer khachHangMaKhachHang;
+    private Long khachHangMaKhachHang;
     @Column(name = "NhaCungCap_MaNhaCungCap")
-    private Integer nhaCungCapMaNhaCungCap;
+    private Long nhaCungCapMaNhaCungCap;
     @Column(name = "UserProfile_UserId")
     private Integer userProfileUserId;
     @Column(name = "Amount")
@@ -47,9 +47,9 @@ public class PhieuThuChis extends BaseEntity {
     @Column(name = "Active")
     private Boolean active;
     @Column(name = "CustomerId")
-    private Integer customerId;
+    private Long customerId;
     @Column(name = "SupplierId")
-    private Integer supplierId;
+    private Long supplierId;
     @Column(name = "ArchivedId")
     private Integer archivedId;
     @Column(name = "StoreId")
@@ -66,5 +66,11 @@ public class PhieuThuChis extends BaseEntity {
     private Date fromDate;
     @Column(name = "ToDate")
     private Date toDate;
+    @Transient
+    private String createdByUserText;
+    @Transient
+    private String customerText;
+    @Transient
+    private String nhaCungCapMaNhaCungCapText;
 }
 
