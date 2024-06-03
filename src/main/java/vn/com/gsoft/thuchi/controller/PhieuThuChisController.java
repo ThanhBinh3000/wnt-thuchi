@@ -14,6 +14,8 @@ import vn.com.gsoft.thuchi.model.system.BaseResponse;
 import vn.com.gsoft.thuchi.service.PhieuThuChisService;
 import vn.com.gsoft.thuchi.util.system.ResponseUtils;
 
+import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -63,5 +65,35 @@ public class PhieuThuChisController {
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<BaseResponse> delete(@Valid @RequestBody PhieuThuChisReq idSearchReq) throws Exception {
     return ResponseEntity.ok(ResponseUtils.ok(service.delete(idSearchReq.getId())));
+  }
+
+  @PostMapping(value = "/get-so-phieu-thu-chi", produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<BaseResponse> getSoPhieuThuChi(@Valid @RequestBody PhieuThuChisReq idSearchReq) throws Exception {
+    return ResponseEntity.ok(ResponseUtils.ok(service.getSoPhieuThuChi(idSearchReq.getLoaiPhieu())));
+  }
+
+  @PostMapping(value = "/get-in-coming-customer-debt", produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<BaseResponse> getInComingCustomerDebt(@Valid @RequestBody PhieuThuChisReq idSearchReq) throws Exception {
+    return ResponseEntity.ok(ResponseUtils.ok(service.getInComingCustomerDebt(idSearchReq.getId(), idSearchReq.getCustomerId())));
+  }
+
+  @PostMapping(value = "/get-out-return-customer-debt", produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<BaseResponse> getOutReturnCustomerDebt(@Valid @RequestBody PhieuThuChisReq idSearchReq) throws Exception {
+    return ResponseEntity.ok(ResponseUtils.ok(service.getOutReturnCustomerDebt(idSearchReq.getId(), idSearchReq.getCustomerId())));
+  }
+
+  @PostMapping(value = "/get-out-coming-supplier-debt", produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<BaseResponse> getOutComingSupplierDebt(@Valid @RequestBody PhieuThuChisReq idSearchReq) throws Exception {
+    return ResponseEntity.ok(ResponseUtils.ok(service.getOutComingSupplierDebt(idSearchReq.getId(), idSearchReq.getSupplierId())));
+  }
+
+  @PostMapping(value = "/get-in-return-supplier-debt", produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<BaseResponse> getInReturnSupplierDebt(@Valid @RequestBody PhieuThuChisReq idSearchReq) throws Exception {
+    return ResponseEntity.ok(ResponseUtils.ok(service.getInReturnSupplierDebt(idSearchReq.getId(), idSearchReq.getSupplierId())));
   }
 }

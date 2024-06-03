@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import vn.com.gsoft.thuchi.constant.RecordStatusContains;
 import vn.com.gsoft.thuchi.entity.BaseEntity;
+import vn.com.gsoft.thuchi.model.system.ApplicationSetting;
 import vn.com.gsoft.thuchi.model.system.BaseRequest;
 import vn.com.gsoft.thuchi.model.system.Profile;
 import vn.com.gsoft.thuchi.repository.BaseRepository;
@@ -35,6 +36,14 @@ public class BaseServiceImpl<E extends BaseEntity,R extends BaseRequest, PK exte
             throw new Exception("Token invalid!");
         }
     }
+
+    public ApplicationSetting getSetting(String key) throws Exception {
+        return getLoggedUser().getApplicationSettings().stream()
+                .filter(setting -> setting.getSettingKey().equals(key))
+                .findFirst()
+                .orElse(null);
+    }
+
     @Override
     public Page<E> searchPage(R req) throws Exception {
         Pageable pageable = PageRequest.of(req.getPaggingReq().getPage(), req.getPaggingReq().getLimit());
@@ -118,6 +127,7 @@ public class BaseServiceImpl<E extends BaseEntity,R extends BaseRequest, PK exte
         repository.save(optional.get());
         return true;
     }
+
     @Override
     public boolean restore(PK id) throws Exception {
         Profile userInfo = this.getLoggedUser();

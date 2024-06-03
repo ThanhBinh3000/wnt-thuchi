@@ -1,14 +1,16 @@
 package vn.com.gsoft.thuchi.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -19,17 +21,14 @@ import java.util.Date;
 public class PhieuXuats extends BaseEntity {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "MaPhieuXuat")
-    private Integer maPhieuXuat;
     @Column(name = "SoPhieuXuat")
     private Long soPhieuXuat;
     @Column(name = "NgayXuat")
     private Date ngayXuat;
     @Column(name = "VAT")
-    private Integer vat;
+    private BigDecimal vat;
     @Column(name = "DienGiai")
     private String dienGiai;
     @Column(name = "TongTien")
@@ -39,16 +38,15 @@ public class PhieuXuats extends BaseEntity {
     @Column(name = "NhaThuoc_MaNhaThuoc")
     private String nhaThuocMaNhaThuoc;
     @Column(name = "MaLoaiXuatNhap")
-    private Integer maLoaiXuatNhap;
+    private Long maLoaiXuatNhap;
     @Column(name = "KhachHang_MaKhachHang")
     private Long khachHangMaKhachHang;
     @Column(name = "NhaCungCap_MaNhaCungCap")
     private Long nhaCungCapMaNhaCungCap;
+    @Transient
+    private String nhaCungCapMaNhaCungCapText;
     @Column(name = "BacSy_MaBacSy")
-    private Integer bacSyMaBacSy;
-    @Column(name = "UserProfile_UserId")
-    private Integer userProfileUserId;
-
+    private Long bacSyMaBacSy;
     @Column(name = "Active")
     private Boolean active;
     @Column(name = "IsModified")
@@ -59,18 +57,16 @@ public class PhieuXuats extends BaseEntity {
     private Boolean isDebt;
     @Column(name = "PreNoteDate")
     private Date preNoteDate;
-    @Column(name = "RecordStatusID")
-    private Integer recordStatusID;
     @Column(name = "ConnectivityNoteID")
     private String connectivityNoteID;
     @Column(name = "ConnectivityStatusID")
-    private Integer connectivityStatusID;
+    private Long connectivityStatusID;
     @Column(name = "ConnectivityResult")
     private String connectivityResult;
     @Column(name = "ConnectivityDateTime")
     private Date connectivityDateTime;
     @Column(name = "OrderId")
-    private Integer orderId;
+    private Long orderId;
     @Column(name = "Discount")
     private BigDecimal discount;
     @Column(name = "Score")
@@ -78,23 +74,25 @@ public class PhieuXuats extends BaseEntity {
     @Column(name = "PreScore")
     private BigDecimal preScore;
     @Column(name = "ArchivedId")
-    private Integer archivedId;
+    private Long archivedId;
     @Column(name = "StoreId")
-    private Integer storeId;
+    private Long storeId;
     @Column(name = "TargetId")
-    private Integer targetId;
+    private Long targetId;
     @Column(name = "SourceId")
-    private Integer sourceId;
+    private Long sourceId;
     @Column(name = "SourceStoreId")
-    private Integer sourceStoreId;
+    private Long sourceStoreId;
     @Column(name = "TargetStoreId")
-    private Integer targetStoreId;
+    private Long targetStoreId;
     @Column(name = "PartnerId")
-    private Integer partnerId;
+    private Long partnerId;
     @Column(name = "PrescriptionId")
-    private Integer prescriptionId;
+    private Long prescriptionId;
     @Column(name = "UId")
-    private Long uId;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID uId;
     @Column(name = "InvoiceCode")
     private String invoiceCode;
     @Column(name = "InvoiceNo")
@@ -108,7 +106,7 @@ public class PhieuXuats extends BaseEntity {
     @Column(name = "PaymentScoreAmount")
     private BigDecimal paymentScoreAmount;
     @Column(name = "BonusPaymentId")
-    private Integer bonusPaymentId;
+    private Long bonusPaymentId;
     @Column(name = "InvoiceTemplateCode")
     private String invoiceTemplateCode;
     @Column(name = "InvoiceSeries")
@@ -120,11 +118,13 @@ public class PhieuXuats extends BaseEntity {
     @Column(name = "PrePaymentScore")
     private BigDecimal prePaymentScore;
     @Column(name = "SynStatusId")
-    private Integer synStatusId;
+    private Long synStatusId;
     @Column(name = "TransPaymentAmount")
     private BigDecimal transPaymentAmount;
     @Column(name = "PaymentTypeId")
-    private Integer paymentTypeId;
+    private Long paymentTypeId;
+    @Transient
+    private String paymentTypeText;
     @Column(name = "DebtPaymentAmount")
     private BigDecimal debtPaymentAmount;
     @Column(name = "BackPaymentAmount")
@@ -138,9 +138,9 @@ public class PhieuXuats extends BaseEntity {
     @Column(name = "KeyOldEInvoice")
     private String keyOldEInvoice;
     @Column(name = "EInvoiceStatusID")
-    private Integer eInvoiceStatusID;
+    private Long eInvoiceStatusID;
     @Column(name = "SignEInvoiceStatusID")
-    private Integer signEInvoiceStatusID;
+    private Long signEInvoiceStatusID;
     @Column(name = "ConnEInvoiceDateTime")
     private Date connEInvoiceDateTime;
     @Column(name = "SignEInvoiceDateTime")
@@ -158,9 +158,10 @@ public class PhieuXuats extends BaseEntity {
     @Column(name = "SHDon")
     private String sHDon;
     @Column(name = "PickUpOrderId")
-    private Integer pickUpOrderId;
+    private Long pickUpOrderId;
     @Column(name = "ESampleNoteCode")
     private String eSampleNoteCode;
+    @Lob
     @Column(name = "LinkConfirm")
     private String linkConfirm;
     @Column(name = "TaxAuthorityCode")
@@ -176,8 +177,27 @@ public class PhieuXuats extends BaseEntity {
     @Column(name = "ResultZNS")
     private String resultZNS;
     @Column(name = "IdPaymentQR")
-    private Integer idPaymentQR;
+    private Long idPaymentQR;
     @Column(name = "TargetManagementId")
-    private Integer targetManagementId;
+    private Long targetManagementId;
+
+    @Transient
+    private Boolean IsConnectivity;
+    @Transient
+    private Boolean IsManagement;
+    @Transient
+    private String createdByUserText;
+    @Transient
+    private String targetStoreText;
+    @Transient
+    private String khachHangMaKhachHangText;
+    @Transient
+    private String bacSyMaBacSyText;
+    @Transient
+    private List<PhieuXuatChiTiets> chiTiets;
+    @Transient
+    private BigDecimal debtAmount;
+    @Transient
+    private String noteInfo;
 }
 

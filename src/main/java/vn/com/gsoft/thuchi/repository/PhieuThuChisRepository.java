@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import vn.com.gsoft.thuchi.entity.PhieuThuChis;
+import vn.com.gsoft.thuchi.entity.PhieuXuats;
 import vn.com.gsoft.thuchi.model.dto.PhieuThuChisReq;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public interface PhieuThuChisRepository extends BaseRepository<PhieuThuChis, Phi
           + " AND (:#{#param.maCoSo} IS NULL OR lower(c.maCoSo) LIKE lower(concat('%',CONCAT(:#{#param.maCoSo},'%'))))"
           + " AND (:#{#param.nhanVienId} IS NULL OR c.nhanVienId = :#{#param.nhanVienId}) "
           + " AND (:#{#param.rewardProgramId} IS NULL OR c.rewardProgramId = :#{#param.rewardProgramId}) "
+          + " AND (:#{#param.recordStatusId} IS NULL OR c.recordStatusId = :#{#param.recordStatusId}) "
 //          + " AND (:#{#param.fromDate} IS NULL OR c.fromDate >= :#{#param.fromDateFrom}) "
 //          + " AND (:#{#param.fromDate} IS NULL OR c.fromDate <= :#{#param.fromDateTo}) "
 //          + " AND (:#{#param.toDate} IS NULL OR c.toDate >= :#{#param.toDateFrom}) "
@@ -81,6 +83,7 @@ public interface PhieuThuChisRepository extends BaseRepository<PhieuThuChis, Phi
           + " AND (:#{#param.maCoSo} IS NULL OR lower(c.maCoSo) LIKE lower(concat('%',CONCAT(:#{#param.maCoSo},'%'))))"
           + " AND (:#{#param.nhanVienId} IS NULL OR c.nhanVienId = :#{#param.nhanVienId}) "
           + " AND (:#{#param.rewardProgramId} IS NULL OR c.rewardProgramId = :#{#param.rewardProgramId}) "
+          + " AND (:#{#param.recordStatusId} IS NULL OR c.recordStatusId = :#{#param.recordStatusId}) "
 //          + " AND (:#{#param.fromDate} IS NULL OR c.fromDate >= :#{#param.fromDateFrom}) "
 //          + " AND (:#{#param.fromDate} IS NULL OR c.fromDate <= :#{#param.fromDateTo}) "
 //          + " AND (:#{#param.toDate} IS NULL OR c.toDate >= :#{#param.toDateFrom}) "
@@ -89,4 +92,5 @@ public interface PhieuThuChisRepository extends BaseRepository<PhieuThuChis, Phi
   )
   List<PhieuThuChis> searchList(@Param("param") PhieuThuChisReq param);
 
+  List<PhieuThuChis> findByNhaThuocMaNhaThuocAndLoaiPhieu(String maNhaThuoc, Integer loaiPhieu);
 }

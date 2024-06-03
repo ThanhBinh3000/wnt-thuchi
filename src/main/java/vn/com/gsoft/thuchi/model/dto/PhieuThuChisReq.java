@@ -5,6 +5,7 @@ import vn.com.gsoft.thuchi.model.system.BaseRequest;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class PhieuThuChisReq extends BaseRequest {
@@ -29,9 +30,11 @@ public class PhieuThuChisReq extends BaseRequest {
     private Integer storeId;
     private Integer paymentTypeId;
     private String maCoSo;
-    private Integer nhanVienId;
+    private Long nhanVienId;
     private Integer rewardProgramId;
     private Date fromDate;
     private Date toDate;
+    private Long receiverNoteId;
+    private List<Long> receiverNoteIds;
 }
 
