@@ -1,15 +1,17 @@
 package vn.com.gsoft.thuchi.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -22,15 +24,12 @@ public class PhieuNhaps extends BaseEntity {
     @Column(name = "id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "MaPhieuNhap")
-    private Integer maPhieuNhap;
     @Column(name = "SoPhieuNhap")
     private Long soPhieuNhap;
     @Column(name = "NgayNhap")
     private Date ngayNhap;
     @Column(name = "VAT")
-    private Integer vat;
+    private BigDecimal vat;
     @Column(name = "DienGiai")
     private String dienGiai;
     @Column(name = "TongTien")
@@ -40,14 +39,11 @@ public class PhieuNhaps extends BaseEntity {
     @Column(name = "NhaThuoc_MaNhaThuoc")
     private String nhaThuocMaNhaThuoc;
     @Column(name = "LoaiXuatNhap_MaLoaiXuatNhap")
-    private Integer loaiXuatNhapMaLoaiXuatNhap;
+    private Long loaiXuatNhapMaLoaiXuatNhap;
     @Column(name = "NhaCungCap_MaNhaCungCap")
     private Long nhaCungCapMaNhaCungCap;
     @Column(name = "KhachHang_MaKhachHang")
     private Long khachHangMaKhachHang;
-    @Column(name = "UserProfile_UserId")
-    private Integer userProfileUserId;
-
     @Column(name = "Active")
     private Boolean active;
     @Column(name = "IsModified")
@@ -58,34 +54,34 @@ public class PhieuNhaps extends BaseEntity {
     private Boolean isDebt;
     @Column(name = "PreNoteDate")
     private Date preNoteDate;
-    @Column(name = "RecordStatusID")
-    private Integer recordStatusID;
     @Column(name = "ConnectivityNoteID")
     private String connectivityNoteID;
     @Column(name = "ConnectivityStatusID")
-    private Integer connectivityStatusID;
+    private Long connectivityStatusID;
     @Column(name = "ConnectivityResult")
     private String connectivityResult;
     @Column(name = "ConnectivityDateTime")
     private Date connectivityDateTime;
     @Column(name = "OrderId")
-    private Integer orderId;
+    private Long orderId;
     @Column(name = "ArchivedId")
-    private Integer archivedId;
+    private Long archivedId;
     @Column(name = "StoreId")
-    private Integer storeId;
+    private Long storeId;
     @Column(name = "TargetId")
-    private Integer targetId;
+    private Long targetId;
     @Column(name = "SourceId")
-    private Integer sourceId;
+    private Long sourceId;
     @Column(name = "SourceStoreId")
-    private Integer sourceStoreId;
+    private Long sourceStoreId;
     @Column(name = "TargetStoreId")
-    private Integer targetStoreId;
+    private Long targetStoreId;
     @Column(name = "PartnerId")
-    private Integer partnerId;
+    private Long partnerId;
     @Column(name = "UId")
-    private Long uId;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID uId;
     @Column(name = "InvoiceCode")
     private String invoiceCode;
     @Column(name = "InvoiceNo")
@@ -107,7 +103,7 @@ public class PhieuNhaps extends BaseEntity {
     @Column(name = "ArchivedDate")
     private Date archivedDate;
     @Column(name = "TimeTypeId")
-    private Integer timeTypeId;
+    private Long timeTypeId;
     @Column(name = "NoteName")
     private String noteName;
     @Column(name = "Notes")
@@ -115,18 +111,42 @@ public class PhieuNhaps extends BaseEntity {
     @Column(name = "Reasons")
     private String reasons;
     @Column(name = "SynStatusId")
-    private Integer synStatusId;
+    private Long synStatusId;
     @Column(name = "PaymentTypeId")
-    private Integer paymentTypeId;
+    private Long paymentTypeId;
     @Column(name = "DebtPaymentAmount")
     private BigDecimal debtPaymentAmount;
     @Column(name = "PickUpOrderId")
-    private Integer pickUpOrderId;
+    private Long pickUpOrderId;
+    @Lob
     @Column(name = "LinkFile")
     private String linkFile;
     @Column(name = "Discount")
     private BigDecimal discount;
     @Column(name = "TargetManagementId")
-    private Integer targetManagementId;
+    private Long targetManagementId;
+
+    @Transient
+    private List<PhieuNhapChiTiets> chiTiets;
+
+    @Transient
+    private String tenNhaCungCap;
+
+    @Transient
+    private String tenKhachHang;
+
+    @Transient
+    private String tenPaymentType;
+
+    @Transient
+    private String tenNguoiTao;
+    @Transient
+    private String targetStoreText;
+    @Transient
+    private BigDecimal debtAmount;
+    @Transient
+    private BigDecimal returnAmount;
+    @Transient
+    private String noteInfo;
 }
 

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vn.com.gsoft.thuchi.model.dto.DebtInfoRes;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class PhieuThuChis extends BaseEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @Column(name = "SoPhieu")
-    private Integer soPhieu;
+    private Long soPhieu;
     @Column(name = "DienGiai")
     private String dienGiai;
     @Column(name = "NgayTao")
@@ -36,7 +37,7 @@ public class PhieuThuChis extends BaseEntity {
     @Column(name = "NhaCungCap_MaNhaCungCap")
     private Long nhaCungCapMaNhaCungCap;
     @Column(name = "UserProfile_UserId")
-    private Integer userProfileUserId;
+    private Long userProfileUserId;
     @Column(name = "Amount")
     private BigDecimal amount;
     @Column(name = "NguoiNhan")
@@ -54,13 +55,13 @@ public class PhieuThuChis extends BaseEntity {
     @Column(name = "ArchivedId")
     private Integer archivedId;
     @Column(name = "StoreId")
-    private Integer storeId;
+    private Long storeId;
     @Column(name = "PaymentTypeId")
     private Integer paymentTypeId;
     @Column(name = "MaCoSo")
     private String maCoSo;
     @Column(name = "NhanVienId")
-    private Integer nhanVienId;
+    private Long nhanVienId;
     @Column(name = "RewardProgramId")
     private Integer rewardProgramId;
     @Column(name = "FromDate")
@@ -74,8 +75,8 @@ public class PhieuThuChis extends BaseEntity {
     @Transient
     private String nhaCungCapMaNhaCungCapText;
     @Transient
-    private NhaThuocs nhaThuocs;
+    private String nhanVienText;
     @Transient
-    private List<InOutPaymentReceiverNote> chiTiets;
+    private NhaThuocs nhaThuocs;
 }
 

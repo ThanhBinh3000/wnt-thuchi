@@ -1,13 +1,11 @@
 package vn.com.gsoft.thuchi.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vn.com.gsoft.thuchi.model.dto.DebtInfoRes;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,9 +16,10 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "InOutPaymentReceiverNote")
-public class InOutPaymentReceiverNote {
+public class InOutPaymentReceiverNote extends BaseEntity {
     @Id
     @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "InOutCommingNoteId")
     private Long inOutCommingNoteId;
@@ -31,10 +30,16 @@ public class InOutPaymentReceiverNote {
     @Column(name = "DrugStoreCode")
     private String drugStoreCode;
     @Column(name = "ReceiverNoteTypeId")
-    private Long receiverNoteTypeId;
+    private Integer receiverNoteTypeId;
     @Column(name = "StoreId")
     private Long storeId;
     @Column(name = "DebtPaymentAmount")
     private BigDecimal debtPaymentAmount;
+    @Transient
+    private PhieuNhaps phieuNhaps;
+    @Transient
+    private PhieuXuats phieuXuats;
+    @Transient
+    private BigDecimal debtAmount;
 }
 
