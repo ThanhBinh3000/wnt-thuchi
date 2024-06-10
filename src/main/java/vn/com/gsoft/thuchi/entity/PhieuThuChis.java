@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 public class PhieuThuChis extends BaseEntity {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "SoPhieu")
     private Long soPhieu;
@@ -73,10 +73,35 @@ public class PhieuThuChis extends BaseEntity {
     @Transient
     private String customerText;
     @Transient
+    private String diaChiKhacHangText;
+    @Transient
     private String nhaCungCapMaNhaCungCapText;
     @Transient
     private String nhanVienText;
     @Transient
     private NhaThuocs nhaThuocs;
+    @Transient
+    private String nhaThuocMaNhaThuocText;
+    @Transient
+    private String diaChiNhaThuocText;
+    @Transient
+    private String sdtNhaThuocText;
+    @Transient
+    private String loaiPhieuText;
+    @Transient
+    private String bangChu;
+    @Transient
+    private String nameHeader;
+    @Transient
+    private String nameSignature;
+    @Transient
+    private String cusType;
+    @Transient
+    private String type;
+    @Transient
+    private BigDecimal debtAmount;
+    @Transient
+    private BigDecimal returnAmount;
+
 }
 

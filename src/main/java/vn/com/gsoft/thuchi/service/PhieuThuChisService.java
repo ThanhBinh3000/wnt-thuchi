@@ -4,10 +4,11 @@ package vn.com.gsoft.thuchi.service;
 import vn.com.gsoft.thuchi.entity.PhieuNhaps;
 import vn.com.gsoft.thuchi.entity.PhieuThuChis;
 import vn.com.gsoft.thuchi.entity.PhieuXuats;
+import vn.com.gsoft.thuchi.entity.ReportTemplateResponse;
 import vn.com.gsoft.thuchi.model.dto.DebtInfoRes;
 import vn.com.gsoft.thuchi.model.dto.PhieuThuChisReq;
 
-import java.util.List;
+import java.util.HashMap;
 
 public interface PhieuThuChisService extends BaseService<PhieuThuChis, PhieuThuChisReq, Long> {
     Long getSoPhieuThuChi(Integer loaiPhieu) throws Exception;
@@ -15,4 +16,5 @@ public interface PhieuThuChisService extends BaseService<PhieuThuChis, PhieuThuC
     DebtInfoRes<PhieuNhaps> getOutReturnCustomerDebt(Long phieuThuChiId, Long customerId) throws Exception;
     DebtInfoRes<PhieuNhaps> getOutComingSupplierDebt(Long phieuThuChiId, Long supplierId) throws Exception;
     DebtInfoRes<PhieuXuats> getInReturnSupplierDebt(Long phieuThuChiId, Long supplierId) throws Exception;
+    ReportTemplateResponse preview(HashMap<String, Object> hashMap) throws Exception;
 }

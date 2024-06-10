@@ -16,7 +16,7 @@ public class PathContains {
     public static final String URL_PHIEU_XUAT = "/phieu-xuat";
     public static final String URL_PHIEU_NHAP_CT = "/phieu-nhap-ct";
     public static final String URL_PHIEU_XUAT_CT = "/phieu-xuat-ct";
-
+    public static final String URL_PREVIEW = "/preview";
 
 
 }
