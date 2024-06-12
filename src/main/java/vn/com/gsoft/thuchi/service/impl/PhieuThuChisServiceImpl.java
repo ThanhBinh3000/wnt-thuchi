@@ -1,5 +1,4 @@
 package vn.com.gsoft.thuchi.service.impl;
-
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,8 @@ import vn.com.gsoft.thuchi.model.system.ApplicationSetting;
 import vn.com.gsoft.thuchi.model.system.Profile;
 import vn.com.gsoft.thuchi.repository.*;
 import vn.com.gsoft.thuchi.service.PhieuThuChisService;
-
+import vn.com.gsoft.thuchi.util.system.FileUtils;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -378,6 +378,7 @@ public class PhieuThuChisServiceImpl extends BaseServiceImpl<PhieuThuChis, Phieu
         if (optional.get().getCustomerId() != null && optional.get().getCustomerId() > 0) {
             Optional<KhachHangs> khachHang = khachHangsRepository.findById(optional.get().getCustomerId());
             khachHang.ifPresent(khachHangs -> optional.get().setCustomerText(khachHangs.getTenKhachHang()));
+            khachHang.ifPresent(khachHangs -> optional.get().setDiaChiKhacHangText(khachHangs.getDiaChi()));
         }
         if (optional.get().getSupplierId() != null && optional.get().getSupplierId() > 0) {
             Optional<NhaCungCaps> nhaCungCaps = nhaCungCapsRepository.findById(optional.get().getSupplierId());
@@ -715,5 +716,83 @@ public class PhieuThuChisServiceImpl extends BaseServiceImpl<PhieuThuChis, Phieu
         res.setDebtNotes(returnToSupplierNoteService);
         res.setDebtAmount(debtAmount);
         return res;
+    }
+
+    @Override
+    public ReportTemplateResponse preview(HashMap<String, Object> hashMap) throws Exception {
+        Profile userInfo = this.getLoggedUser();
+        if (userInfo == null) {
+            throw new Exception("Bad request.");
+        }
+        try {
+            PhieuThuChis phieuThuChis = this.detail(FileUtils.safeToLong(hashMap.get("id")));
+            String loai = FileUtils.safeToString(hashMap.get("loai"));
+            String templatePath = "/template/thuChi/";
+            phieuThuChis.setBangChu(FileUtils.convertToWords(phieuThuChis.getAmount()));
+            phieuThuChis.setLoaiPhieuText("PHIẾU THU");
+            phieuThuChis.setNameHeader("Họ tên người nhận tiền");
+            phieuThuChis.setNameSignature("Người nhận tiền");
+            switch (loai) {
+                case FileUtils.InKhachLeA5:
+                    templatePath += "RptPhieuThuA5.docx";
+                    break;
+                case FileUtils.InKhachQuen:
+                    if (phieuThuChis.getNhaThuocMaNhaThuoc().equals("4563")) {
+                        templatePath += "RptPhieuThuA4_4563.docx";
+                        phieuThuChis.setBangChu(FileUtils.convertToWords(phieuThuChis.getAmount()));
+                    }
+                    if (phieuThuChis.getLoaiPhieu() == InOutCommingType.OtherIncomming || phieuThuChis.getLoaiPhieu() == InOutCommingType.OtherOutcomming || phieuThuChis.getLoaiPhieu() == InOutCommingType.BusinessCosts) {
+                        templatePath += "RptPhieuThuChiKhac.docx";
+                    } else if (phieuThuChis.getLoaiPhieu() == InOutCommingType.Incomming) {
+                        templatePath += "RptPhieuThu.docx";
+                    } else if (phieuThuChis.getLoaiPhieu() == InOutCommingType.Outcomming) {
+                        templatePath += "RptPhieuChi.docx";
+                    }
+                    break;
+                default:
+                    break;
+            }
+            this.setTruong(userInfo, phieuThuChis, loai);
+            InputStream templateInputStream = FileUtils.templateInputStream(templatePath);
+            return FileUtils.convertDocxToPdf(templateInputStream, phieuThuChis);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void setTruong(Profile userInfo, PhieuThuChis phieuThuChis, String loai) {
+        phieuThuChis.setNhaThuocMaNhaThuocText(userInfo.getNhaThuoc().getTenNhaThuoc());
+        phieuThuChis.setDiaChiNhaThuocText(userInfo.getNhaThuoc().getDiaChi());
+        phieuThuChis.setSdtNhaThuocText(userInfo.getNhaThuoc().getDienThoai());
+        if (loai.equals(FileUtils.InKhachLeA5)) {
+            if (phieuThuChis.getLoaiPhieu() == InOutCommingType.Incomming || phieuThuChis.getLoaiPhieu() == InOutCommingType.OtherIncomming) {
+                phieuThuChis.setNameHeader("Họ tên người nộp tiền");
+                phieuThuChis.setNameSignature("Người nộp tiền");
+            } else if (phieuThuChis.getLoaiPhieu() == InOutCommingType.Outcomming || phieuThuChis.getLoaiPhieu() == InOutCommingType.OtherOutcomming || phieuThuChis.getLoaiPhieu() == InOutCommingType.BusinessCosts) {
+                phieuThuChis.setLoaiPhieuText("PHIẾU CHI");
+            }
+        }
+        if (loai.equals(FileUtils.InKhachQuen)) {
+            if (phieuThuChis.getLoaiPhieu() == InOutCommingType.Incomming || phieuThuChis.getLoaiPhieu() == InOutCommingType.Outcomming) {
+                try {
+                    DebtInfoRes<PhieuXuats> debtInfoRes = this.getInComingCustomerDebt(phieuThuChis.getId(), phieuThuChis.getKhachHangMaKhachHang());
+                    phieuThuChis.setDebtAmount(debtInfoRes.getDebtAmount() != null ? debtInfoRes.getDebtAmount() : new BigDecimal(0));
+                    phieuThuChis.setReturnAmount(debtInfoRes.getDebtAmount() != null ? debtInfoRes.getDebtAmount() : new BigDecimal(0));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                if (phieuThuChis.getLoaiPhieu() == InOutCommingType.BusinessCosts) {
+                    phieuThuChis.setType("Chi phí kinh doanh");
+                }else if (phieuThuChis.getLoaiPhieu() == InOutCommingType.OtherOutcomming){
+                    phieuThuChis.setType("Chi khác");
+                } else {
+                    phieuThuChis.setType("Thu khác");
+                }
+                phieuThuChis.setCusType(phieuThuChis.getLoaiPhieu() == InOutCommingType.OtherIncomming ? "Người nộp" : "Người nhận");
+            }
+        }
+
     }
 }
